@@ -1,0 +1,45 @@
+<div class="card primary">
+  <div class="card-header">
+    Customer Form
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="Save()" [formGroup]="customerForm">
+      <fieldset>
+        <div class="form-group">
+          <label for="firstname">First Name</label>
+          <input class="form-control" id="firstNameId" type="text" placeholder="First Name (required)" formControlName="firstname">
+        </div>
+        <div class="form-group">
+          <label for="lastname">Last Name</label>
+          <input class="form-control" id="lastnameId" type="text" placeholder="Last Name (required)" formControlName="lastname">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">@</span>
+            </div>
+            <input type="text" formControlName="email" class="form-control" placeholder="Email (required)" aria-label="Username"
+              aria-describedby="basic-addon1">
+          </div>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label>Send Catalog</label> &nbsp;
+          <input type="checkbox" formControlName="sendCatalog">
+        </div>
+      </fieldset>
+      <button type="submit" class="btn btn-primary" [disabled]="!customerForm.valid">Submit</button>
+       &nbsp;
+      <button type="submit" class="btn btn-default" (click)="populateTestData()">Test</button>
+    </form>
+  </div>
+</div>
+
+<div>
+  <br /> Dirty: {{ customerForm.dirty }}
+  <br /> Touched: {{ customerForm.touched }}
+  <br /> Valid: {{ customerForm.valid }}
+  <br /> Value: {{ customerForm.value | json }}
+
+</div>
