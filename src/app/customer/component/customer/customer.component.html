@@ -40,13 +40,8 @@
                 aria-describedby="basic-addon1">
             </div>
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            <div class="alert alert-danger" *ngIf="customerForm.controls.emailGroup.controls.email.touched && customerForm.get('emailGroup.email').errors">
-              <div *ngIf="customerForm.get('emailGroup.email').errors?.required">
-                This filed is Required .
-              </div>
-              <div *ngIf="customerForm.get('emailGroup.email').errors?.pattern">
-                Not Matched.
-              </div>
+            <div class="alert alert-danger" *ngIf="emailMessage">
+              {{ emailMessage }}
             </div>
           </div>
           &nbsp;
@@ -93,10 +88,10 @@
         <div class="form-group">
           <label>Send Notifications</label>
           <label class="radio-inline">
-            <input type="radio" value="email" (click)="setNotification('email')" formControlName="notification"> Email
+            <input type="radio" value="email"  formControlName="notification"> Email
           </label>
           <label class="radio-inline">
-            <input type="radio" value="text" (click)="setNotification('text')" formControlName="notification"> Text
+            <input type="radio" value="text" formControlName="notification"> Text
           </label>
         </div>
         <div class="form-group">
