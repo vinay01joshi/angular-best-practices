@@ -5,6 +5,9 @@
 /tmp
 /out-tsc
 
+# showing valnablity issue on git.
+package-lock.json
+
 # dependencies
 /node_modules
 
