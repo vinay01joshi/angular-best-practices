@@ -8,29 +8,109 @@
         <div class="form-group">
           <label for="firstname">First Name</label>
           <input class="form-control" id="firstNameId" type="text" placeholder="First Name (required)" formControlName="firstname">
+          <div class="alert alert-danger" *ngIf="customerForm.get('firstname').touched && customerForm.get('firstname').errors">
+            <div *ngIf="customerForm.get('firstname').errors?.required">
+              This filed is Required .
+            </div>
+            <div *ngIf="customerForm.get('firstname').errors?.minlength">
+              MinLength will be 3.
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="lastname">Last Name</label>
           <input class="form-control" id="lastnameId" type="text" placeholder="Last Name (required)" formControlName="lastname">
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">@</span>
+          <div class="alert alert-danger" *ngIf="customerForm.get('lastname').touched && customerForm.get('lastname').errors">
+            <div *ngIf="customerForm.get('lastname').errors?.required">
+              This filed is Required .
             </div>
-            <input type="text" formControlName="email" class="form-control" placeholder="Email (required)" aria-label="Username"
-              aria-describedby="basic-addon1">
+            <div *ngIf="customerForm.get('lastname').errors?.maxlength">
+              Max will be 50.
+            </div>
           </div>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div formGroupName="emailGroup" class="email-group row">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@</span>
+              </div>
+              <input type="text" formControlName="email" class="form-control" placeholder="Email (required)" aria-label="Username"
+                aria-describedby="basic-addon1">
+            </div>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div class="alert alert-danger" *ngIf="customerForm.controls.emailGroup.controls.email.touched && customerForm.get('emailGroup.email').errors">
+              <div *ngIf="customerForm.get('emailGroup.email').errors?.required">
+                This filed is Required .
+              </div>
+              <div *ngIf="customerForm.get('emailGroup.email').errors?.pattern">
+                Not Matched.
+              </div>
+            </div>
+          </div>
+          &nbsp;
+          <div class="form-group">
+            <label for="confirmEmail">Confirm Email</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">@</span>
+              </div>
+              <input type="text" formControlName="confirmEmail" class="form-control" placeholder="confirmEmail (required)" aria-label="Username"
+                aria-describedby="basic-addon1">
+            </div>
+            <small id="emailHelp" class="form-text text-muted">Please confirm your email.</small>
+            <div class="alert alert-danger" *ngIf="customerForm.get('emailGroup').errors">
+              Email not matched
+            </div>          
+            <div class="alert alert-danger" *ngIf="customerForm.controls.emailGroup.controls.confirmEmail.touched && customerForm.get('emailGroup.confirmEmail').errors">
+              <div *ngIf="customerForm.get('emailGroup.confirmEmail').errors?.required">
+                This filed is Required .
+              </div>
+              <div *ngIf="customerForm.get('emailGroup.confirmEmail').errors?.pattern">
+                Not Matched.
+              </div>
+            
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label>Send Catalog</label> &nbsp;
           <input type="checkbox" formControlName="sendCatalog">
         </div>
+        <div class="form-group">
+          <label for="firstname">Phone</label>
+          <input class="form-control" id="firstNameId" type="text" placeholder="Phone" formControlName="phone">
+          <div class="alert alert-danger" *ngIf="customerForm.get('phone').touched && customerForm.get('phone').errors">
+            <div *ngIf="customerForm.get('phone').errors?.required">
+              This filed is Required .
+            </div>
+            <div *ngIf="customerForm.get('phone').errors?.minlength">
+              MinLength will be 10.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Send Notifications</label>
+          <label class="radio-inline">
+            <input type="radio" value="email" (click)="setNotification('email')" formControlName="notification"> Email
+          </label>
+          <label class="radio-inline">
+            <input type="radio" value="text" (click)="setNotification('text')" formControlName="notification"> Text
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="rating">Rating</label>
+          <input class="form-control" id="ratingId" type="text" placeholder="Rating 1 - 5" formControlName="rating">
+          <div class="alert alert-danger" *ngIf="customerForm.get('rating').touched && customerForm.get('rating').errors">
+            <div *ngIf="customerForm.get('rating').errors?.range">
+              Range will be bteween 1 to 5.
+            </div>
+          </div>
+        </div>
       </fieldset>
       <button type="submit" class="btn btn-primary" [disabled]="!customerForm.valid">Submit</button>
-       &nbsp;
+      &nbsp;
       <button type="submit" class="btn btn-default" (click)="populateTestData()">Test</button>
     </form>
   </div>
@@ -41,5 +121,5 @@
   <br /> Touched: {{ customerForm.touched }}
   <br /> Valid: {{ customerForm.valid }}
   <br /> Value: {{ customerForm.value | json }}
-
+  <br /> Errors: {{ customerForm.errors | json }}
 </div>
